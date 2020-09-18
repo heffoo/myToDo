@@ -6,6 +6,9 @@ const Tasks = (props) => {
   const date = Date();
   const [tasks, setTask] = useState([{ title: "1", date: date }]);
   const [value, setValue] = useState("");
+  {
+    ("dadasd");
+  }
   const addTask = () => {
     setTask([...tasks, { title: value, date: date }]);
   };
