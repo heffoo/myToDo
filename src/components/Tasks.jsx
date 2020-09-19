@@ -6,9 +6,7 @@ const Tasks = (props) => {
   const date = Date();
   const [tasks, setTask] = useState([{ title: "1", date: date }]);
   const [value, setValue] = useState("");
-  {
-    ("dadasd");
-  }
+
   const addTask = () => {
     setTask([...tasks, { title: value, date: date }]);
   };
@@ -21,23 +19,27 @@ const Tasks = (props) => {
 
   return (
     <div className="taskContainer">
+      <input className="search" value={value} type="text" onChange={(e) => setValue(e.target.value)} />
+      <button onClick={addTask} className="buttonPush">
+        {" "}
+        +
+      </button>
       <div className="tasks">
         <ul className="taskList">
           {tasks.map((task, index) => (
             <Fragment key={task + index}>
               <li>
+                {" "}
+                <input className="checkbox" type="checkbox" />
                 <span>{task.title} </span>
-                <span>{task.date}</span>
+                {/* <span>{task.date}</span> */}
+                <button className="delTask" onClick={() => delTask(index)}>
+                  ✕
+                </button>
               </li>
-              <button onClick={() => delTask(index)}>del</button>
             </Fragment>
           ))}
         </ul>
-        <input value={value} type="text" onChange={(e) => setValue(e.target.value)} />
-        <button onClick={addTask} className="buttonPush">
-          {" "}
-          add
-        </button>
       </div>
     </div>
   );
