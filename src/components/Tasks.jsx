@@ -4,16 +4,18 @@ import "../App.css";
 
 const Tasks = ({ completed }) => {
   const date = Date();
-  const [tasks, setTask] = useState([{ id: 1, title: "1", date: date }]);
+  const [tasks, setTask] = useState([]);
   const [value, setValue] = useState("");
 
   const addTask = () => {
     setTask([...tasks, { id: value, title: value, date: date }]);
+    setValue("");
   };
   const addTaskByEnter = (event) => {
     console.log(123);
     if (event.key === "Enter") {
-      setTask([...tasks, { title: value }]);
+      setTask([...tasks, { title: value, id: Date.now() }]);
+      setValue("");
     }
   };
   const delTask = (idx) => {
