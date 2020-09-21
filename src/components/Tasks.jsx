@@ -1,20 +1,31 @@
 import React, { useState, Fragment } from "react";
+import Task from "./Task";
 
 import "../App.css";
 
 const Tasks = ({ completed }) => {
   const date = Date();
-  const [tasks, setTask] = useState([]);
+  const [tasks, setTask] = useState([{ title: "first task" }, { title: "first task" }]);
   const [value, setValue] = useState("");
 
   const addTask = () => {
-    setTask([...tasks, { id: value, title: value, date: date }]);
-    setValue("");
+    if (value !== "") {
+      setTask([...tasks, { title: value, date: date }]);
+      setValue("");
+    } else {
+      alert("pls type smth");
+    }
   };
+
+  const editTask = (idx, value) => {
+    let elemTask = tasks[idx];
+    elemTask.title = value;
+    console.log(elemTask);
+  };
+
   const addTaskByEnter = (event) => {
-    console.log(123);
-    if (event.key === "Enter") {
-      setTask([...tasks, { title: value, id: Date.now() }]);
+    if (event.key === "Enter" && value !== "") {
+      setTask([...tasks, { title: value }]);
       setValue("");
     }
   };
@@ -25,11 +36,6 @@ const Tasks = ({ completed }) => {
     setTask(filteredTasks);
   };
 
-  const [checked, setChecked] = useState(completed);
-  // const classes = ["tasks"];
-  // if (checked) {
-  //   classes.push("completed");
-  // }
   return (
     <div className="taskContainer">
       <input
@@ -40,26 +46,17 @@ const Tasks = ({ completed }) => {
         onKeyPress={addTaskByEnter}
       />
       <button onClick={addTask} onKeyPress={addTaskByEnter} className="buttonPush">
-        {" "}
         +
       </button>
       <div className="tasks">
         <ul className="taskList">
           {tasks.map((task, index) => (
-            <Fragment key={task + index}>
-              <li className={checked ? "completed" : ""}>
-                <input type="checkbox" className="checkbox" checked={completed} onChange={() => setChecked(!checked)} />
-                <span>{task.title} </span>
-                {/* <span>{task.date}</span> */}
-                <button className="delTask" onClick={() => delTask(index)}>
-                  ✕
-                </button>
-              </li>
-            </Fragment>
+            <Task task={task} index={index} delTask={delTask} completed={completed} editTask={editTask} />
           ))}
         </ul>
       </div>
     </div>
   );
 };
+
 export default Tasks;

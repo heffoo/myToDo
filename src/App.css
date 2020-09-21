@@ -3,7 +3,6 @@
 }
 
 .mainContainer {
-  
   width: 500px;
   height: 400px;
   /* border: 2px solid lightgray; */
@@ -12,18 +11,6 @@
   display: flex;
   box-shadow: 3px 3px 20px gray;
 }
-.sidebar {
-  width: 25%;
-  /* border-right: 1px solid gray; */
-  background-color: rgba(216, 213, 213, 0.11);
-  box-shadow: 2px 3px 10px lightgray;
-}
-.sideTasks li {
-  /* border: 1px solid black; */
-  width: 50px;
-  padding: 5px 10px;
-  box-shadow: 1px 2px 10px gray;
-}
 
 .taskContainer {
   /* border: 1px solid black; */
@@ -31,13 +18,13 @@
   height: 400px;
 }
 .search {
+  padding-left: 20px;
   outline: 0;
   border: 1px solid lightgray;
-  
   border-radius: 30px;
-  width: 300px;
+  width: 290px;
   height: 25px;
-  margin: 10px 15px 0 10px;
+  margin: 10px 10px 0 10px;
 }
 
 .taskList {
@@ -49,12 +36,48 @@
   position: absolute;
   right: 0;
   margin: 5px 15px 0 0;
+  height: 22px;
+  width: 26px;
 }
 
 .checkbox {
   margin: 10px;
+  width: 20px;
+  height: 20px;
 }
-
-.completed span {
+.completed {
+  display: flex;
+  align-items: center;
+}
+.completed {
   text-decoration: line-through;
+  color: green;
+}
+.buttonPush {
+  border-radius: 30px;
+  width: 25px;
+  height: 25px;
+  border: 0;
+  background-color: rgb(241, 107, 107);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  outline: 0;
+  padding: 1px 5px;
+
+}
+.buttonPush:hover {
+  background-color: rgb(194, 77, 77);
+  transition: all 0.5s;
+}
+.simpleLi {
+  display: flex;
+  align-items: center;
+}
+.editTask {
+  position: absolute;
+  right: 0;
+  margin: 5px 50px 0 0;
+  height: 22px;
+  width: 26px;
 }
