@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import Task from "./Task";
+import List from "./sidebar/Sidelist"
 import { v4 as uuidv4 } from "uuid";
 
 import "../App.css";
 
 const Tasks = () => {
-  const [tasks, setTask] = useState([
-    { title: "first task", completed: false, id: uuidv4() },
-    { title: "first task", completed: false, id: uuidv4() },
-  ]);
+  const [tasks, setTask] = useState(JSON.parse(localStorage.getItem("data")) || []);
   const [value, setValue] = useState("");
+  const [staticTask, setStaticTask] = useState(tasks);
 
   const addTask = () => {
     if (value !== "") {
       setTask([{ title: value, completed: false, id: uuidv4() }, ...tasks]);
       setValue("");
-      console.log(tasks.id);
+      localStorage.setItem("data", JSON.stringify([{ title: value, completed: false, id: uuidv4() }, ...tasks]));
     } else {
       alert("pls type smth");
     }
@@ -24,30 +23,47 @@ const Tasks = () => {
   const editTask = (id, value) => {
     let elemTask = tasks[id];
     elemTask.title = value;
+    localStorage.setItem("data", JSON.stringify(tasks));
   };
-
 
   const delTask = (id) => {
-    const filteredTasks = tasks.filter(task => task.id !== id);
+    const filteredTasks = tasks.filter((task) => task.id !== id);
     setTask(filteredTasks);
+    localStorage.setItem("data", JSON.stringify(filteredTasks));
   };
+
+  const showChecked = () => {
+    const filteredTasks = tasks.filter((task) => task.completed);
+    setStaticTask(tasks);
+    setTask(filteredTasks);
+    localStorage.setItem("data", JSON.stringify(filteredTasks));
+  }
+  const showAll = () => {
+    setTask(staticTask);
+  }
 
   const checkedTask = (id) => {
     const tasksChecked = tasks.map((task) => {
       if (task.id === id) return { ...task, completed: !task.completed };
       else return task;
     });
+    localStorage.setItem("data", JSON.stringify(tasksChecked));
     setTask(tasksChecked);
   };
 
   return (
-    <div className="taskContainer">
+    <div className="mainContainer">
+      <List
+    showChecked={showChecked}
+    showAll={showAll}
+  />
+      <div className="taskContainer">
       <input
         className="search"
         value={value}
         type="text"
         onChange={(e) => setValue(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && addTask()}
+        onKeyPress={(e) => e.key === "Enter" && addTask()}
       />
       <button onClick={addTask} onKeyPress={addTask} className="buttonPush">
         +
@@ -62,12 +78,18 @@ const Tasks = () => {
               delTask={delTask}
               editTask={editTask}
               checkedTask={checkedTask}
+              
             />
+            
           ))}
         </ul>
       </div>
     </div>
+</div>
+    
+    
   );
+  
 };
 
 export default Tasks;
