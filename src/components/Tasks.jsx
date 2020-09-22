@@ -38,7 +38,7 @@ const Tasks = () => {
     if (taskState === "showAll") {
       const filteredTasks = tasks.filter((task) => task.completed);
       setStaticTask(tasks);
-      localStorage.setItem("data", JSON.stringify(filteredTasks));
+      localStorage.setItem("data", JSON.stringify(staticTask));
       setTask(filteredTasks);
 
       console.log("taskState", taskState);
@@ -51,7 +51,7 @@ const Tasks = () => {
     setTaskState("showAll");
     if (taskState === "showChecked") {
       setTask(staticTask);
-
+      localStorage.setItem("data", JSON.stringify(staticTask));
       console.log("taskState2", taskState);
       console.log("tasks2", tasks);
       console.log("staticTasks2", staticTask);
