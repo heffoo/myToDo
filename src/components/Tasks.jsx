@@ -70,7 +70,8 @@ const Tasks = () => {
     <div className="mainContainer">
       <List showChecked={showChecked} showAll={showAll} />
       <div className="taskContainer">
-        <input
+        <div className="seButton">
+          <input
           className="search"
           value={value}
           type="text"
@@ -80,7 +81,7 @@ const Tasks = () => {
         <button onClick={addTask} onKeyPress={addTask} className="buttonPush">
           +
         </button>
-        <div className="tasks">
+        </div>
           <ul className="taskList">
             {tasks.map((task, index) => (
               <Task
@@ -93,7 +94,6 @@ const Tasks = () => {
               />
             ))}
           </ul>
-        </div>
       </div>
     </div>
   );
