@@ -6,8 +6,8 @@ const List = ({ showChecked, showAll }) => {
   return (
     <div className="sidebar">
       <div className="sidetasks">
-        <button className="btn showAll" onClick={() => showAll() } disabled=''>showAll</button>
-        <button className="btn showChecked" onClick={() => showChecked()}>
+        <button className="btn showAll" onClick={() => showAll() } >showAll</button>
+        <button className="btn showChecked" onClick={() => showChecked() }>
           showChecked
         </button>
         <button className="btn showCompleted">showNotCompleted</button>
