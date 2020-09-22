@@ -1,39 +1,43 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import Task from "./Task";
+import { v4 as uuidv4 } from "uuid";
 
 import "../App.css";
 
-const Tasks = ({ completed }) => {
-  const date = Date();
-  const [tasks, setTask] = useState([{ title: "first task" }, { title: "first task" }]);
+const Tasks = () => {
+  const [tasks, setTask] = useState([
+    { title: "first task", completed: false, id: uuidv4() },
+    { title: "first task", completed: false, id: uuidv4() },
+  ]);
   const [value, setValue] = useState("");
 
   const addTask = () => {
     if (value !== "") {
-      setTask([...tasks, { title: value, date: date }]);
+      setTask([{ title: value, completed: false, id: uuidv4() }, ...tasks]);
       setValue("");
+      console.log(tasks.id);
     } else {
       alert("pls type smth");
     }
   };
 
-  const editTask = (idx, value) => {
-    let elemTask = tasks[idx];
+  const editTask = (id, value) => {
+    let elemTask = tasks[id];
     elemTask.title = value;
-    console.log(elemTask);
   };
 
-  const addTaskByEnter = (event) => {
-    if (event.key === "Enter" && value !== "") {
-      setTask([...tasks, { title: value }]);
-      setValue("");
-    }
-  };
-  const delTask = (idx) => {
-    const filteredTasks = tasks.filter((value, index) => {
-      return idx !== index;
-    });
+
+  const delTask = (id) => {
+    const filteredTasks = tasks.filter(task => task.id !== id);
     setTask(filteredTasks);
+  };
+
+  const checkedTask = (id) => {
+    const tasksChecked = tasks.map((task) => {
+      if (task.id === id) return { ...task, completed: !task.completed };
+      else return task;
+    });
+    setTask(tasksChecked);
   };
 
   return (
@@ -43,15 +47,22 @@ const Tasks = ({ completed }) => {
         value={value}
         type="text"
         onChange={(e) => setValue(e.target.value)}
-        onKeyPress={addTaskByEnter}
+        onKeyPress={(e) => e.key === 'Enter' && addTask()}
       />
-      <button onClick={addTask} onKeyPress={addTaskByEnter} className="buttonPush">
+      <button onClick={addTask} onKeyPress={addTask} className="buttonPush">
         +
       </button>
       <div className="tasks">
         <ul className="taskList">
           {tasks.map((task, index) => (
-            <Task task={task} index={index} delTask={delTask} completed={completed} editTask={editTask} />
+            <Task
+              task={task}
+              index={index}
+              key={index}
+              delTask={delTask}
+              editTask={editTask}
+              checkedTask={checkedTask}
+            />
           ))}
         </ul>
       </div>
