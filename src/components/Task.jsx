@@ -9,11 +9,9 @@ const Task = ({ task, index, delTask,  checkedTask, editTask }) => {
     <>
       <li className="mainLi">
         <input type="checkbox" className="checkbox" checked={task.completed} onChange={() => checkedTask(task.id)} />
-        {edited ? <input type="text" className="editTaskInp" value={task.title} /> : <div className={task.completed ? "completed" : "simpleLi"}>{task.title}</div>}
+        {edited ? <div className="forInput"><input type="text" className="editTaskInp" value={task.title} /> </div> : <div className={task.completed ? "completed" : "simpleLi"}>{task.title}</div>}
         {/* <span>{task.date}</span> */}
-        <button className="delTask" onClick={() => delTask(task.id)}>
-          ✕
-        </button>
+       
         <button
           className="editTask"
           onClick={() => {
@@ -25,6 +23,9 @@ const Task = ({ task, index, delTask,  checkedTask, editTask }) => {
           }}
         >
           {edited ? <i> &#x21ba;</i> : <i>&#x270e;</i>}
+        </button>
+         <button className="delTask" onClick={() => delTask(task.id)}>
+          ✕
         </button>
       </li>
     </>
