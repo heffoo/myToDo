@@ -45,9 +45,7 @@ const showAll = () => {
       
       localStorage.setItem("data", JSON.stringify(staticTasks));
 
-      console.log("taskState2", taskState);
-      console.log("tasks2", tasks);
-      console.log("staticTasks2", staticTasks);
+      
   }
   };
 
@@ -61,10 +59,7 @@ const showAll = () => {
       localStorage.setItem("data", JSON.stringify(staticTasks));
       setTasks(filteredTasks);
       
-      console.log("filtered", filteredTasks);
-      console.log("taskState", taskState);
-      console.log("tasks", tasks);
-      console.log("staticTasks", staticTasks);
+      
   }
   };
 
@@ -77,9 +72,7 @@ const showNotChecked = () => {
       localStorage.setItem("data", JSON.stringify(staticTasks));
       setTasks(filteredTasks);
       
-      console.log("taskState3", taskState);
-      console.log("tasks3", tasks);
-      console.log("staticTasks3", staticTasks);
+
   }
 }
 
@@ -100,7 +93,7 @@ const showNotChecked = () => {
 
   return (
     <div className="mainContainer">
-      <List showChecked={showChecked} showAll={showAll} showNotChecked={showNotChecked}/>
+      <List showChecked={showChecked} showAll={showAll} showNotChecked={showNotChecked} taskState={taskState} />
       <div className="taskContainer">
         <div className="seButton">
           <input
@@ -123,6 +116,7 @@ const showNotChecked = () => {
                 delTask={delTask}
                 editTask={editTask}
                 checkedTask={checkedTask}
+                
               />
             ))}
           </ul>
