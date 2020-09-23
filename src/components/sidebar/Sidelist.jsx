@@ -1,5 +1,5 @@
 import React from "react";
-import Tasks from "../Tasks"
+
 import "./sidestyles.css";
 
 const List = ({ showChecked, showAll }) => {

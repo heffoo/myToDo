@@ -6,14 +6,16 @@ import { v4 as uuidv4 } from "uuid";
 import "../App.css";
 
 const Tasks = () => {
-  const [tasks, setTask] = useState(JSON.parse(localStorage.getItem("data")) || []);
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("data")) || []);
   const [value, setValue] = useState("");
-  const [staticTask, setStaticTask] = useState(tasks);
-  const [taskState, setTaskState] = useState("showAll");
+  const [staticTasks, setStaticTasks] = useState(tasks);
+  const [taskState, setTaskState] = useState('showAll');
 
   const addTask = () => {
     if (value !== "") {
-      setTask([{ title: value, completed: false, id: uuidv4() }, ...tasks]);
+      setTasks([{ title: value, completed: false, id: uuidv4() }, ...tasks]);
+      setStaticTasks([{ title: value, completed: false, id: uuidv4() }, ...staticTasks]);
+
       setValue("");
       localStorage.setItem("data", JSON.stringify([{ title: value, completed: false, id: uuidv4() }, ...tasks]));
     } else {
@@ -29,33 +31,36 @@ const Tasks = () => {
 
   const delTask = (id) => {
     const filteredTasks = tasks.filter((task) => task.id !== id);
-    setTask(filteredTasks);
+    setTasks(filteredTasks);
     localStorage.setItem("data", JSON.stringify(filteredTasks));
   };
 
   const showChecked = () => {
     setTaskState("showChecked");
-    if (taskState === "showAll") {
+  if (taskState === "showAll") {
       const filteredTasks = tasks.filter((task) => task.completed);
-      setStaticTask(tasks);
-      localStorage.setItem("data", JSON.stringify(staticTask));
-      setTask(filteredTasks);
-
+      setStaticTasks(tasks);
+      localStorage.setItem("data", JSON.stringify(staticTasks));
+      setTasks(filteredTasks);
+      
+      console.log("filtered", filteredTasks);
       console.log("taskState", taskState);
       console.log("tasks", tasks);
-      console.log("staticTasks", staticTask);
-    }
+      console.log("staticTasks", staticTasks);
+  }
   };
 
   const showAll = () => {
     setTaskState("showAll");
-    if (taskState === "showChecked") {
-      setTask(staticTask);
-      localStorage.setItem("data", JSON.stringify(staticTask));
+     if (taskState === "showChecked") {
+      setTasks(staticTasks);
+      
+      localStorage.setItem("data", JSON.stringify(staticTasks));
+
       console.log("taskState2", taskState);
       console.log("tasks2", tasks);
-      console.log("staticTasks2", staticTask);
-    }
+      console.log("staticTasks2", staticTasks);
+  }
   };
   const checkedTask = (id) => {
     const tasksChecked = tasks.map((task) => {
@@ -63,7 +68,12 @@ const Tasks = () => {
       else return task;
     });
     localStorage.setItem("data", JSON.stringify(tasksChecked));
-    setTask(tasksChecked);
+    setTasks(tasksChecked);
+    const staticTasksChecked = staticTasks.map((task) => {
+      if (task.id === id) return { ...task, completed: !task.completed };
+      else return task;
+    });
+    setStaticTasks(staticTasksChecked);
   };
 
   return (

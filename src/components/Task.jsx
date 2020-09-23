@@ -9,7 +9,7 @@ const Task = ({ task, index, delTask,  checkedTask, editTask }) => {
     <>
       <li className="mainLi">
         <input type="checkbox" className="checkbox" checked={task.completed} onChange={() => checkedTask(task.id)} />
-        {edited ? <div className="forInput"><input type="text" className="editTaskInp" value={task.title} /> </div> : <div className={task.completed ? "completed" : "simpleLi"}>{task.title}</div>}
+        {edited ? <div className="forInput"><input type="text" className="editTaskInp" defaultValue={task.title} /> </div> : <div className={task.completed ? "completed" : "simpleLi"}>{task.title}</div>}
         {/* <span>{task.date}</span> */}
        
         <button
