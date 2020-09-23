@@ -59,7 +59,27 @@
   height: 22px;
   width: 26px;
   cursor: pointer;
+  height: 30px;
+  width: 30px;
+font-size: 22px;
+background-color: transparent;
+border: 0;
   
+  
+}
+.delTask {
+  background-color: transparent;
+  padding: 2px 0 0 2px ;
+ font-size: 22px;
+ outline: 0;
+}
+.delTask:hover {
+  background-color: rgba(226, 222, 222, 0.486);
+  /* box-shadow: 3px 3px 15px rgba(165, 165, 165, 0.486);  */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: all ease-out 0.2s;
 }
 
 .checkbox {
@@ -71,6 +91,11 @@
 .mainLi {
   display: flex;
   align-items: center;
+  height: 50px;
+  
+}
+.mainLi:hover {
+  box-shadow: 0px 7px 15px -12px #000000;
 }
 .completed {
   text-decoration: line-through;
@@ -102,12 +127,28 @@
 }
 .editTask {
   cursor: pointer;
-  margin: 0 5px 0 0 ;
-  height: 22px;
-  width: 26px;
+  margin: 0 15px 0 0 ;
+  height: 30px;
+  width: 30px;
+font-size: 22px;
+background-color: transparent;
+border: 0;
+padding: 2px 0 0 0 ;
+outline: 0;
+}
+.editTask:hover {
+  background-color: rgba(226, 222, 222, 0.486);
+  /* box-shadow: 3px 3px 15px rgba(165, 165, 165, 0.486);  */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: all ease-out 0.2s;
 }
 .editTaskInp {
-  
+  border: 0;
+  border-bottom: 1px solid black;
+  font-size: 16px;
+  outline: 0;
   
 }
 .forInput {

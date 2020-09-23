@@ -13,8 +13,9 @@ const Tasks = () => {
 
   const addTask = () => {
     if (value !== "") {
-      setTasks([{ title: value, completed: false, id: uuidv4() }, ...tasks]);
-      setStaticTasks([{ title: value, completed: false, id: uuidv4() }, ...staticTasks]);
+      const task={ title: value, completed: false, id: uuidv4() }
+      setTasks([task, ...tasks]);
+      setStaticTasks([task, ...staticTasks]);
 
       setValue("");
       localStorage.setItem("data", JSON.stringify([{ title: value, completed: false, id: uuidv4() }, ...tasks]));
@@ -35,11 +36,28 @@ const Tasks = () => {
     localStorage.setItem("data", JSON.stringify(filteredTasks));
   };
 
+
+
+const showAll = () => {
+    setTaskState("showAll");
+     if (taskState !== "showAll") {
+      setTasks(staticTasks);
+      
+      localStorage.setItem("data", JSON.stringify(staticTasks));
+
+      console.log("taskState2", taskState);
+      console.log("tasks2", tasks);
+      console.log("staticTasks2", staticTasks);
+  }
+  };
+
+
+
   const showChecked = () => {
     setTaskState("showChecked");
-  if (taskState === "showAll") {
-      const filteredTasks = tasks.filter((task) => task.completed);
-      setStaticTasks(tasks);
+  if (taskState !== "showChecked") {
+      const filteredTasks = staticTasks.filter((task) => task.completed);
+      setStaticTasks(staticTasks);
       localStorage.setItem("data", JSON.stringify(staticTasks));
       setTasks(filteredTasks);
       
@@ -50,18 +68,21 @@ const Tasks = () => {
   }
   };
 
-  const showAll = () => {
-    setTaskState("showAll");
-     if (taskState === "showChecked") {
-      setTasks(staticTasks);
-      
+  
+const showNotChecked = () => {
+  setTaskState('showNotChecked');
+  if (taskState !== 'showNotChecked') {
+    const filteredTasks = staticTasks.filter((task) => !task.completed);
+    setStaticTasks(staticTasks);
       localStorage.setItem("data", JSON.stringify(staticTasks));
-
-      console.log("taskState2", taskState);
-      console.log("tasks2", tasks);
-      console.log("staticTasks2", staticTasks);
+      setTasks(filteredTasks);
+      
+      console.log("taskState3", taskState);
+      console.log("tasks3", tasks);
+      console.log("staticTasks3", staticTasks);
   }
-  };
+}
+
   const checkedTask = (id) => {
     const tasksChecked = tasks.map((task) => {
       if (task.id === id) return { ...task, completed: !task.completed };
@@ -73,12 +94,13 @@ const Tasks = () => {
       if (task.id === id) return { ...task, completed: !task.completed };
       else return task;
     });
+    console.log(staticTasksChecked)
     setStaticTasks(staticTasksChecked);
   };
 
   return (
     <div className="mainContainer">
-      <List showChecked={showChecked} showAll={showAll} />
+      <List showChecked={showChecked} showAll={showAll} showNotChecked={showNotChecked}/>
       <div className="taskContainer">
         <div className="seButton">
           <input
